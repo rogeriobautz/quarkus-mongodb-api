@@ -1,3 +1,6 @@
+#MongoDB Local Storage API
+docker/mongo-data
+
 #Maven
 target/
 pom.xml.tag

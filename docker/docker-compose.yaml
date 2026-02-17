@@ -1,0 +1,21 @@
+services:
+  mongodb:
+    image: mongodb/mongodb-community-server:latest
+    container_name: mongodb-local
+    user: root  # Força o uso de root para evitar o erro EACCES na criação da pasta
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-data:/data/db
+    # O script de inicialização oficial fica em /usr/local/bin/docker-entrypoint.sh
+    # Mas usamos 'mongod' diretamente para garantir o bootstrap
+    entrypoint: >
+      /bin/bash -c "
+      mongod --bind_ip_all & 
+      for i in {1..20}; do 
+        mongosh --eval 'db.adminCommand(\"ping\")' > /dev/null 2>&1 && break; 
+        echo 'Aguardando Mongo...'; 
+        sleep 2; 
+      done;
+      mongosh quarkus --eval 'db.person.createIndex({name: 1}, {unique: true})'; 
+      wait"
