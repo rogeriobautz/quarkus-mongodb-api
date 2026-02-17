@@ -39,8 +39,8 @@ public class PersonResource {
 
     @POST
     public Response create(PersonRequestDTO personRequestDTO) {
-        personService.persist(personRequestDTO);
-        return Response.status(201).build();
+        PersonResponseDTO response = personService.persist(personRequestDTO);
+        return Response.status(201).entity(response).build();
     }
 
     @PUT

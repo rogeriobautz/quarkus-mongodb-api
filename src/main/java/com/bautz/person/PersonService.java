@@ -17,11 +17,17 @@ public class PersonService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(PersonService.class);
 
-    public PersonRequestDTO persist(PersonRequestDTO personRequestDTO) {
-        LOGGER.info("Persisting person: {}", personRequestDTO);
-        validate(personRequestDTO);
-        personRepository.persist(toEntity(personRequestDTO));
-        return personRequestDTO;
+    public PersonResponseDTO persist(PersonRequestDTO requestDto) {
+        LOGGER.info("Validating POST request: {}", requestDto);
+        validate(requestDto);
+        Person entity = toEntity(requestDto);
+        LOGGER.info("Persisting person: {}", entity);
+        personRepository.upsertByName(entity);
+        return toResponse(entity);
+    }
+
+    private PersonResponseDTO toResponse(Person entity) {
+        return new PersonResponseDTO(entity.getId(), entity.getName(), entity.getBirthDate(), entity.getStatus(), entity.getLastUpdated());
     }
 
     private void validate(PersonRequestDTO person) {
