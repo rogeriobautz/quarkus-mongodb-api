@@ -1,1 +1,5 @@
-{ "name": "João da Silva", "birthDate": "1990-01-01", "status": "LIVING" }
+{
+    "name": "João da Silva",
+    "birthDate": "1990-01-01",
+    "status": "LIVING"
+}

@@ -18,25 +18,24 @@ public class PersonService {
     private final Logger LOGGER = LoggerFactory.getLogger(PersonService.class);
 
     public PersonResponseDTO persist(PersonRequestDTO requestDto) {
-        LOGGER.info("Validating POST request: {}", requestDto);
         validate(requestDto);
-        Person entity = toEntity(requestDto);
-        LOGGER.info("Persisting person: {}", entity);
-        personRepository.upsertByName(entity);
-        return toResponse(entity);
+        Person persisted = personRepository.upsertByName(toEntity(requestDto));
+        LOGGER.info("Person persisted {}", persisted);
+        return toResponse(persisted);
     }
 
     private PersonResponseDTO toResponse(Person entity) {
-        return new PersonResponseDTO(entity.getId(), entity.getName(), entity.getBirthDate(), entity.getStatus(), entity.getLastUpdated());
+        return new PersonResponseDTO(entity.getId(), entity.getName(), entity.getLastUpdated());
     }
 
     private void validate(PersonRequestDTO person) {
         if (person.name() == null || person.birthDate() == null || person.status() == null) {
             throw new BadRequestException("All fields are mandatory");
         }
+
         if(!List.of(Status.values()).contains(person.status())) {
             throw new BadRequestException("Invalid Status: " + person.status());
-        }
+        }        
     }
 
     private Person toEntity(PersonRequestDTO personRequestDTO) {
