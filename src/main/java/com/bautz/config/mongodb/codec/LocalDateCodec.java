@@ -1,4 +1,4 @@
-package com.bautz.config.mongodb;
+package com.bautz.config.mongodb.codec;
 
 import java.time.LocalDate;
 

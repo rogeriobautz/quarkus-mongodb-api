@@ -1,10 +1,8 @@
 package com.bautz.util;
 
-import java.util.regex.Pattern;
-
 public class StringUtil {
 
-    public static String normalizeName(String input) {
+    public static String capitalizeEveryWord(String input) {
     if (input == null || input.isBlank()) {
         return input;
     }
@@ -30,22 +28,5 @@ public class StringUtil {
     return new String(chars);
 }
 
-    /* 
-
-    // UNICODE_CHARACTER_CLASS: Faz o \w, \b e \p{L} entenderem acentos corretamente
-    // CASE_INSENSITIVE: Permite trabalhar com o input original ou lowercase
-    private static final Pattern WORD_START = Pattern.compile("(?U)\\b\\p{L}");
-
-    public static String capitalizeEveryWord(String input) {
-        if (input == null || input.isBlank())
-            return input;
-
-        // Passamos para lowercase primeiro para garantir que o resto da palavra fique
-        // minuscula
-        return WORD_START.matcher(input.toLowerCase())
-                .replaceAll(m -> m.group().toUpperCase());
-    }
-                
-    */
 
 }

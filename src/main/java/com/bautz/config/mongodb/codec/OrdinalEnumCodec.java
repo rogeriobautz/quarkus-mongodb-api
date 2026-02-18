@@ -1,4 +1,4 @@
-package com.bautz.config.mongodb;
+package com.bautz.config.mongodb.codec;
 
 import org.bson.*;
 import org.bson.codecs.Codec;

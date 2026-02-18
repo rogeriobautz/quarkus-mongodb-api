@@ -27,7 +27,7 @@ public class Person {
     public static final String MONGODB_LAST_UPDATED = "LAST_UPDATED";
 
     public Person(String name, LocalDate birthDate, Status status) {
-        this.name = StringUtil.normalizeName(name);
+        this.name = StringUtil.capitalizeEveryWord(name);
         this.birthDate = birthDate;
         this.status = status;
         this.lastUpdated = Instant.now().truncatedTo(ChronoUnit.SECONDS);
@@ -57,7 +57,7 @@ public class Person {
     }
 
     public void setName(String name) {
-        this.name = StringUtil.normalizeName(name);
+        this.name = StringUtil.capitalizeEveryWord(name);
     }
 
     public void setBirthDate(LocalDate birthDate) {

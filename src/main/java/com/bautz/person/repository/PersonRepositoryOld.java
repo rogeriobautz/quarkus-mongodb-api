@@ -1,5 +1,7 @@
-package com.bautz.person;
+package com.bautz.person.repository;
 
+import com.bautz.person.Person;
+import com.bautz.person.Status;
 import com.bautz.util.StringUtil;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.UpdateOptions;
@@ -20,10 +22,10 @@ public class PersonRepositoryOld implements PanacheMongoRepository<Person> {
     private final Logger LOGGER = LoggerFactory.getLogger(PersonRepositoryOld.class.getName());
 
     public void upsertByName(Person person) {
-        Bson filter = Filters.eq("name", StringUtil.normalizeName(person.getName()));
+        Bson filter = Filters.eq("name", StringUtil.capitalizeEveryWord(person.getName()));
 
         Bson update = Updates.combine(
-            Updates.set("name", StringUtil.normalizeName(person.getName())),
+            Updates.set("name", StringUtil.capitalizeEveryWord(person.getName())),
             Updates.set("birth", person.getBirthDate()),
             Updates.set("status", person.getStatus()),
             Updates.set("lastUpdated", person.getLastUpdated())

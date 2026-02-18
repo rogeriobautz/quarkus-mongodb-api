@@ -14,6 +14,12 @@ import jakarta.ws.rs.core.Response;
 
 import org.bson.types.ObjectId;
 
+import com.bautz.person.repository.PersonRepository;
+
+import com.bautz.person.dto.PersonResponseDTO;
+
+import com.bautz.person.dto.PersonRequestDTO;
+
 @Path("/persons")
 @Consumes("application/json")
 @Produces("application/json")
@@ -63,7 +69,13 @@ public class PersonResource {
     }
 
     @DELETE
-    public void deleteAll(){
+    public void deleteAll() {
         personRepository.deleteAll();
+    }
+
+    @PUT
+    @Path("/deceased/{name}")
+    public Person changeToDeceased(String name) {
+        return personService.changeToDeceased(name);
     }
 }

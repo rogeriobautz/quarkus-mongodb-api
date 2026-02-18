@@ -1,4 +1,4 @@
-package com.bautz.person;
+package com.bautz.person.dto;
 
 import java.time.Instant;
 
